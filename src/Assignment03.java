@@ -3,15 +3,19 @@ import java.util.Random;
 public class Assignment03 {
 
     public static void main(String[] args) {
-        int[] testArray = RandomArray(10);
+        //int[] testArray = RandomArray(10);
+        int[] testArray = new int[]{5,7,8,1,2,9};
+        System.out.println("Test Array before merge sort: ");
         PrintArray(testArray);
         MergeSort(testArray, 0, (testArray.length - 1));
+        System.out.println("Test Array after merge sort: ");
         PrintArray(testArray);
     }
 
-    public static void MergeSort(int[] dataList, int firstIndex, int lastIndex) {
-        if (firstIndex < lastIndex) {
-            int middleIndex = (firstIndex + lastIndex / 2);
+    public static void MergeSort(int[] dataList, int firstIndex, int lastIndex) { //TODO: Rewrite to have the firstIndex and lastIndex generated from dataList.length.
+        if (firstIndex < lastIndex) { // 0 - 5
+            int middleIndex = ((firstIndex + lastIndex) / 2);
+            System.out.println("Middle Index: " +  middleIndex);
             MergeSort(dataList, firstIndex, middleIndex);
             MergeSort(dataList, middleIndex + 1, lastIndex);
             MergeLists(dataList, firstIndex, middleIndex, middleIndex +1, lastIndex);
@@ -26,11 +30,11 @@ public class Assignment03 {
         int finalStart = start1;
         int finalEnd = end2;
         int indexC = 0;
-        int[] resultList = new int[dataList.length];
-        while ((start1 <= end1) && (start2 <= end2)) {
-            if (dataList[start1] < dataList[start2]) {
-                resultList[indexC] = dataList[start1];
-                start1 += 1;
+        int[] resultList = new int[dataList.length]; // Placeholder list
+        while ((start1 <= end1) && (start2 <= end2)) { // While the first indexes of the split lists are <= the last indexes.
+            if (dataList[start1] < dataList[start2]) { // If ListA's first item is less than ListB's first item.
+                resultList[indexC] = dataList[start1]; // Place the item in placeholder list at the next open slot.
+                start1 += 1; // Now looks to the next item in the list
             } else {
                 resultList[indexC] = dataList[start2];
                 start2 += 1;
@@ -53,6 +57,8 @@ public class Assignment03 {
             dataList[i] = resultList[indexC];
             indexC += 1;
         }
+        System.out.println("Result Array at end of MergeLists:");
+        PrintArray(resultList);
     }
 
     public static int[] RandomArray(int listSize) {
