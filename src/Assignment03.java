@@ -3,22 +3,60 @@ import java.util.Random;
 
 public class Assignment03 {
 
-    private static int recursionCount = 0;
+    private static int comparisonCount = 0;
 
     public static void main(String[] args) {
+
+//        ** Testing MergeSort with list size 10, values between 0 - 100000
+        comparisonCount = 0;
+        MergeSort(RandomList(10, 100000), 0, 9);
+        System.out.println("MergeSort with 10 elements completed with a comparison count of **" + comparisonCount + "**");
+//        ** Testing MergeSort with list size 10, values between 0 - 100000
+        comparisonCount = 0;
+        MergeSort(RandomList(100, 100000), 0, 99);
+        System.out.println("MergeSort with 100 elements completed with a comparison count of **" + comparisonCount + "**");
+
+//        ** Testing MergeSort with list size 10, values between 0 - 100000
+        comparisonCount = 0;
+        MergeSort(RandomList(1000, 100000), 0, 999);
+        System.out.println("MergeSort with 1000 elements completed with a comparison count of **" + comparisonCount + "**");
+
+//        ** Testing MergeSort with list size 10, values between 0 - 100000
+        comparisonCount = 0;
+        MergeSort(RandomList(10000, 100000), 0, 9999);
+        System.out.println("MergeSort with 10000 elements completed with a comparison count of **" + comparisonCount + "**");
+
+//        ** Testing MergeSort with list size 10, values between 0 - 100000
+        comparisonCount = 0;
+        MergeSort(RandomList(100000, 100000), 0, 99999);
+        System.out.println("MergeSort with 100000 elements completed with a comparison count of **" + comparisonCount + "**");
+
+//        ** Testing MergeSort with list size 10, values between 0 - 100000
+        comparisonCount = 0;
+        MergeSort(RandomList(1000000, 100000), 0, 999999);
+        System.out.println("MergeSort with 1000000 elements completed with a comparison count of **" + comparisonCount + "**");
+
+//        Results:
+//
+//        MergeSort with 10 elements completed with a comparison count of **23**
+//        MergeSort with 100 elements completed with a comparison count of **535**
+//        MergeSort with 1000 elements completed with a comparison count of **8690**
+//        MergeSort with 10000 elements completed with a comparison count of **120531**
+//        MergeSort with 100000 elements completed with a comparison count of **1536140**
+//        MergeSort with 1000000 elements completed with a comparison count of **18673927**
+
         //************************
         //** MERGE SORT TESTING **
         //************************
 
-//        int[] testArray = RandomArray(10);
-        int[] testArray = new int[]{16,7,10,1,5,11,3,8,14,4,2,12,6,13,9,15};
-        System.out.println("Test Array before merge sort: ");
-        PrintArray(testArray);
-//        MergeSort(testArray, 0, 15);
-        System.out.println("TestArrayLength - 1 = " + (testArray.length - 1));
-        MergeSort(testArray, 0, (testArray.length - 1));
-        System.out.println("Test Array after merge sort: ");
-        PrintArray(testArray);
+//        int[] testArray = new int[]{16,7,10,1,5,11,3,8,14,4,2,12,6,13,9,15};
+//        System.out.println("Test Array before merge sort: ");
+//        PrintArray(testArray);
+//
+//        MergeSort(testArray, 0, (testArray.length - 1));
+//
+//        System.out.println("Test Array after merge sort: ");
+//        PrintArray(testArray);
 
         //************************
         //** QUICK SORT TESTING **
@@ -37,14 +75,8 @@ public class Assignment03 {
                                                                      **************************************
      */
     public static void MergeSort(int[] dataList, int firstIndex, int lastIndex) {
-        System.out.println("*********** Recursion Count: " + recursionCount + " ***********");
-        System.out.println("First Index = "+ firstIndex + ". Last Index = " + lastIndex);
-        System.out.println("First Index Value = "+ dataList[firstIndex] + ". Last Index Value = " + dataList[lastIndex]);
-        recursionCount++;
         if (firstIndex < lastIndex) {
-            System.out.println("Loop was ran");
             int middleIndex = ((firstIndex + lastIndex) / 2);
-            System.out.println("Middle Index: " +  middleIndex); //DEBUG
             MergeSort(dataList, firstIndex, middleIndex);
             MergeSort(dataList, middleIndex + 1, lastIndex);
             MergeLists(dataList, firstIndex, middleIndex, middleIndex +1, lastIndex);
@@ -52,8 +84,6 @@ public class Assignment03 {
     }
 
     public static void MergeLists(int[] dataList, int firstIndex, int middleIndex, int midplusoneIndex, int lastIndex) {
-        System.out.println("MergeLists Running with. firstIndex: " + firstIndex + " middleIndex : " + middleIndex + " midplusoneIndex: "+ midplusoneIndex + " lastIndex: " + lastIndex);
-        System.out.println("MergeLists Running with. firstIndex Value: " + dataList[firstIndex] + " middleIndex Value : " + dataList[middleIndex] + " midplusoneIndex: Value "+ dataList[midplusoneIndex] + " lastIndex Value: " + dataList[lastIndex]);
         int start1 = firstIndex;
         int end1 = middleIndex;
         int start2 = midplusoneIndex;
@@ -71,6 +101,7 @@ public class Assignment03 {
                 start2 += 1;
             }
             indexC += 1;
+            comparisonCount++;
         }
         if (start1 <= end1) {
             for (int i = start1; i <= end1; i++) {
@@ -88,11 +119,6 @@ public class Assignment03 {
             dataList[i] = resultList[indexC];
             indexC += 1;
         }
-        System.out.println("Result Array at end of MergeLists:");
-        PrintArray(resultList);
-        System.out.println("Test Array at end of MergeLists:");
-        PrintArray(dataList);
-        System.out.println(dataList[0]);
     }
 
     /*
@@ -116,6 +142,7 @@ public class Assignment03 {
                 pivotPoint = pivotPoint + 1;
                 SwapElements(dataList, pivotPoint, i);
             }
+            comparisonCount++;
         }
         SwapElements(dataList, first, pivotPoint);
         return pivotPoint;
@@ -127,17 +154,6 @@ public class Assignment03 {
                                                                      **************************************
  */
 
-    public static int[] RandomArray(int listSize) {
-        int[] returnList = new int[listSize];
-        int insertNum = 0;
-        for (int i = 0; i < listSize; ++i) {
-            returnList[i] = insertNum;
-            insertNum += 1;
-        }
-        ArrayShuffle(returnList);
-        return returnList;
-    }
-
     public static void ArrayShuffle(int[] data) {
         Random rn = new Random(27);
         for (int i = 0; i < data.length; ++i) {
@@ -148,18 +164,27 @@ public class Assignment03 {
         }
     }
 
-    public static int[] OrderedList_Low_to_High() {
-        int[] orderedList = new int[100];
-        for (int i = 1; i <= 100; ++i) {
+    public static int[] RandomList(int size, int maxNum) {
+        int[] randomList = new int[size];
+        Random rn = new Random(27);
+        for (int i = 1; i <= size; ++i) {
+            randomList[i - 1] = rn.nextInt((maxNum - 0) + 1) + 0;
+        }
+        return randomList;
+    }
+
+    public static int[] OrderedList_Low_to_High(int size) {
+        int[] orderedList = new int[size];
+        for (int i = 1; i <= size; ++i) {
             orderedList[i - 1] = i;
         }
         return orderedList;
     }
 
-    public static int[] OrderedList_High_to_Low() {
-        int[] orderedList = new int[100];
-        int value = 100;
-        for (int i = 1; i <= 100; ++i) {
+    public static int[] OrderedList_High_to_Low(int size) {
+        int[] orderedList = new int[size];
+        int value = size;
+        for (int i = 1; i <= size; ++i) {
             orderedList[i - 1] = value;
             value = value - 1;
         }
