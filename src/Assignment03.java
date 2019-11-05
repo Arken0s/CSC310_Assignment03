@@ -1,4 +1,3 @@
-import javax.sound.midi.Soundbank;
 import java.util.Random;
 
 public class Assignment03 {
@@ -6,38 +5,9 @@ public class Assignment03 {
     private static int comparisonCount = 0;
 
     public static void main(String[] args) {
-
-//        ** Testing MergeSort with list size 10, values between 0 - 100000
-        comparisonCount = 0;
-        MergeSort(RandomList(10, 100000), 0, 9);
-        System.out.println("MergeSort with 10 elements completed with a comparison count of **" + comparisonCount + "**");
-//        ** Testing MergeSort with list size 10, values between 0 - 100000
-        comparisonCount = 0;
-        MergeSort(RandomList(100, 100000), 0, 99);
-        System.out.println("MergeSort with 100 elements completed with a comparison count of **" + comparisonCount + "**");
-
-//        ** Testing MergeSort with list size 10, values between 0 - 100000
-        comparisonCount = 0;
-        MergeSort(RandomList(1000, 100000), 0, 999);
-        System.out.println("MergeSort with 1000 elements completed with a comparison count of **" + comparisonCount + "**");
-
-//        ** Testing MergeSort with list size 10, values between 0 - 100000
-        comparisonCount = 0;
-        MergeSort(RandomList(10000, 100000), 0, 9999);
-        System.out.println("MergeSort with 10000 elements completed with a comparison count of **" + comparisonCount + "**");
-
-//        ** Testing MergeSort with list size 10, values between 0 - 100000
-        comparisonCount = 0;
-        MergeSort(RandomList(100000, 100000), 0, 99999);
-        System.out.println("MergeSort with 100000 elements completed with a comparison count of **" + comparisonCount + "**");
-
-//        ** Testing MergeSort with list size 10, values between 0 - 100000
-        comparisonCount = 0;
-        MergeSort(RandomList(1000000, 100000), 0, 999999);
-        System.out.println("MergeSort with 1000000 elements completed with a comparison count of **" + comparisonCount + "**");
-
+        MergeSortMultiTest(10,10,6);
+        
 //        Results:
-//
 //        MergeSort with 10 elements completed with a comparison count of **23**
 //        MergeSort with 100 elements completed with a comparison count of **535**
 //        MergeSort with 1000 elements completed with a comparison count of **8690**
@@ -153,6 +123,22 @@ public class Assignment03 {
                                                                      ****      SUPPORT FUNCTIONS       ****
                                                                      **************************************
  */
+    /**
+     * Creates random arrays with values between 1-100,000 and runs them through MergeSort, producing the cost. (1)
+     * @param size This value is the amount of elements in each array and will be squared for each run.
+     * @param multiVar What value to times the size by each run to increase its size.
+     * @param runs How many arrays will be sent to MergeSort. Each run will square the "size" variable.
+     */
+    public static void MergeSortMultiTest(int size, int multiVar, int runs) {
+        System.out.println("DataSize,Cost");
+        for (int i = 0; i < runs; i++) {
+            comparisonCount = 0;
+            MergeSort(RandomList(size, 100000), 0, size - 1);
+            System.out.println(size + "," + comparisonCount);
+//            System.out.println("MergeSort with 1000 elements completed with a comparison count of **" + comparisonCount + "**");
+            size = (size * multiVar);
+        }
+    }
 
     public static void ArrayShuffle(int[] data) {
         Random rn = new Random(27);
